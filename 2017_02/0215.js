@@ -1,3 +1,8 @@
+/**
+ * console.time, console.timeEnd
+ * __filename, __dirname
+ * console.dir 
+ */
 var result = 0;
 
 console.time("sum");
@@ -13,6 +18,6 @@ console.log("Hello Node.js world %s", name);
 console.log("실행파일 이름 %s", __filename);
 console.log("실행파일 경로 %s", __dirname);
 
-// 객체안의 속성값 확인
+// 객체의 속성값 확인
 var person = {name:"collin", gender:"man"};
 console.dir(person);
