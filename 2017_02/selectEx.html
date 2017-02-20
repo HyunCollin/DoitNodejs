@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="./jquery.js"></script>
+<script type="text/javascript">
+	var locationViewId = "location";
+	var storeViewId = "store";
+
+	$(document).ready(function(){
+		var locationList = loadLocation(); 
+		var result = setSelectOption(locationList, locationViewId);
+		
+		if(result){
+			locationChange(locationList[0].seq);
+			setInAddr(locationViewId, storeViewId);
+		}else{
+			console.log("function setSelectOption error");
+			return;			
+		}
+	});
+	
+	function loadLocation(){
+		var locationList = [{name:"서울지점", seq:"01"},{name:"인천지점", seq:"02"}
+							,{name:"경기지점", seq:"03"},{name:"제주지점", seq:"04"}];
+		return locationList;
+	};
+	
+	function setSelectOption(itemList, selectViewId){
+		var result = false;
+		if(itemList != null && itemList.length > 0){
+			
+			$('#'+selectViewId+' option').remove();
+			
+			for(var i=0; i < itemList.length; i++){
+				$('#'+selectViewId).append("<option value="+itemList[i].seq+">"+itemList[i].name+"</option>");
+			}			
+			result = true;
+		}else{
+			result = false;
+		}
+		
+		return result;
+	};
+
+	function locationChange(seq){
+		var storeList = loadStore(seq);
+		var result = setSelectOption(storeList, storeViewId);
+		setInAddr(locationViewId, storeViewId);
+	};
+	
+	function loadStore(seq){
+		var cityCd01 = "01", cityCd02 = "02", cityCd03 = "03", cityCd04 = "04";
+		var storeList = null;
+		
+		if(cityCd01 === seq){
+			storeList    = [{name:"강남구", seq:"01"},{name:"강동구", seq:"02"}
+			,{name:"광진구", seq:"03"},{name:"송파구", seq:"04"}];			
+		}else if(cityCd02 === seq){
+			storeList    = [{name:"동구", seq:"01"},{name:"중구", seq:"02"}
+			,{name:"남구", seq:"03"},{name:"연수구", seq:"04"}];			
+		}else if(cityCd03 === seq){
+			storeList    = [{name:"양평군", seq:"01"},{name:"이천시청", seq:"02"}];			
+		}else if(cityCd04 === seq){
+			storeList    = [{name:"제주시청", seq:"01"},{name:"서귀포시청", seq:"02"}];			
+		}
+		
+		return storeList;
+	}; 
+	
+	function inAddrChange(){
+		setInAddr(locationViewId, storeViewId);
+	};
+	
+	function setInAddr(locationViewId, storeViewId){
+		var location = $('#'+locationViewId+" option:selected").text();
+		var store = $('#'+storeViewId+" option:selected").text();
+		$('#inAddr').text(location+" "+store);
+	};
+	
+</script>
+</head>
+<body>
+	<div>시/도<br>
+		<select id="location" onchange="locationChange(this.value)">시/도
+			<option>base</option>
+		</select>	
+	</div>
+	<br>
+	<br>
+	<div>지역<br>
+		<select id="store" onchange="inAddrChange()">지점
+			<option>base</option>
+		</select>
+	</div><br>
+	
+	<div> 선택한 지역  : <p id="inAddr"></p></div>
+	
+</body>
+</html>
