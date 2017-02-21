@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
   },
-  "repository": "",
+  "repository": "https://github.com/HyunCollin/DoitNodejs",
   "keywords": [
     "node.js",
     "eclipse",
@@ -14,5 +14,10 @@
   ],
   "author": "",
   "license": "MIT",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "moment": "^2.17.1",
+    "winston": "^2.3.1",
+    "winston-daily-rotate-file": "^1.4.4"
+  }
 }
