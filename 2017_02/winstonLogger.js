@@ -59,6 +59,6 @@ var logger = new(winston.Logger)({
 	]
 });
 
-logger.debug("logger.debug");
-logger.info("logger.info");
-logger.error("logger.error");
+module.exports.getLogger = function(){
+	return logger;
+};
